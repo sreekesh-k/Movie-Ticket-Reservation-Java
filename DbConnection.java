@@ -1,12 +1,13 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class DbConnection {
-    Connection con;
-    Statement st;
+public class DbConnection {
+    private Connection con;
+    private Statement st;
 
     public DbConnection(String dbname) {
         try {
@@ -35,5 +36,22 @@ class DbConnection {
             System.out.println("Error :" + e);
         }
         return rs;
+    }
+
+    public void close() {
+        try {
+            if (st != null) {
+                st.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing database connection: " + e);
+        }
+    }
+
+    public PreparedStatement prepareStatement(String sql) throws Exception {
+        return con.prepareStatement(sql);
     }
 }

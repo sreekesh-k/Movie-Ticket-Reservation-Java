@@ -1,3 +1,6 @@
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Login {
@@ -14,7 +17,6 @@ public class Login {
         System.out.println("Please enter your password:");
         String password = scanner.nextLine();
 
-        // Replace this with actual authentication logic
         boolean isAuthenticated = authenticateUser(username, password);
 
         if (isAuthenticated) {
@@ -27,8 +29,24 @@ public class Login {
     }
 
     private boolean authenticateUser(String username, String password) {
-        // Simulate authentication logic (replace with actual database lookup)
-        return username.equals("admin") && password.equals("password");
+        try {
+            DbConnection dbConnection = new DbConnection("users");
+            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            boolean userExists = resultSet.next(); 
+            resultSet.close();
+            preparedStatement.close();
+            dbConnection.close();
+            return userExists;
+
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+            return false; 
+        }
     }
 
     public void closeScanner() {
