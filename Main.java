@@ -4,6 +4,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static Login login = new Login();
     private static Signup signup = new Signup();
+    private static Movies movies = new Movies();
 
     public static void main(String[] args) {
         boolean exit = false;
@@ -23,8 +24,11 @@ public class Main {
             switch (choice) {
                 case 1:
                     clearScreen();
-                    if (login.authenticate())
+                    if (login.authenticate()) {
+                        clearScreen();
+                        movieSelection();
                         exit = true;
+                    }
                     break;
                 case 2:
                     clearScreen();
@@ -37,12 +41,6 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-            clearScreen();
-            System.out.println("      PICTURE PERFECT");
-            System.out.println("_____________________________");
-            System.out.println("index>homepage>");
-            System.out.println("_____________________________");
-            
         }
         scanner.close();
     }
@@ -50,5 +48,19 @@ public class Main {
     private static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private static void movieSelection() {
+        System.out.println("      PICTURE PERFECT");
+        System.out.println("_____________________________");
+        System.out.println("index>Home>");
+        System.out.println("_____________________________");
+        int selectedMovieId = movies.selectMovie();
+        if (selectedMovieId != -1) {
+            System.out.println("You have selected movie with ID: " + selectedMovieId);
+        } else {
+            System.out.println("No movie selected. Returning to main menu.");
+        }
+        // Add further logic here for movie selection process
     }
 }
