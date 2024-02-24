@@ -1,16 +1,15 @@
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Scanner;
 
-public class Login {
+public class Signup {
     private Scanner scanner;
 
-    public Login() {
+    public Signup() {
         this.scanner = new Scanner(System.in);
     }
 
-    public boolean authenticate() {
-        System.out.println("\tLOGIN");
+    public void signUp() {
+        System.out.println("\tSIGN UP");
         System.out.println("__________________________");
         System.out.print("Please enter your username:");
         String username = scanner.nextLine();
@@ -18,32 +17,33 @@ public class Login {
         System.out.print("Please enter your password:");
         String password = scanner.nextLine();
 
-        boolean isAuthenticated = authenticateUser(username, password);
+        System.out.print("Please enter your email ID:");
+        String email = scanner.nextLine();
 
-        if (isAuthenticated) {
-            System.out.println("Login successful!");
+        boolean isRegistered = registerUser(username, password, email);
+
+        if (isRegistered) {
+            System.out.println("Registration successful!");
         } else {
-            System.out.println("Invalid username or password. Please try again.");
+            System.out.println("Error registering user. Please try again.");
         }
-
-        return isAuthenticated;
     }
 
-    private boolean authenticateUser(String username, String password) {
+    private boolean registerUser(String username, String password, String email) {
         try {
             DbConnection dbConnection = new DbConnection("movies_db");
-            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String sql = "INSERT INTO users (username, password, emailid) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(3, email);
 
-            boolean userExists = resultSet.next();
-            resultSet.close();
+            int rowsAffected = preparedStatement.executeUpdate();
+
             preparedStatement.close();
             dbConnection.close();
-            return userExists;
 
+            return rowsAffected > 0; // Returns true if at least one row is affected (user is registered)
         } catch (Exception e) {
             System.out.println("Error " + e);
             return false;
