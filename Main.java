@@ -6,32 +6,44 @@ public class Main {
     private static Signup signup = new Signup();
 
     public static void main(String[] args) {
-        clearScreen();
-        System.out.println("WELCOME TO PICTURE PERFECT");
-        System.out.println("__________________________\n");
-        System.out.println("1. Login\t2. Signup");
-        System.out.println("3. Exit");
-        System.out.print("Enter Your Choice: ");
+        boolean exit = false;
+        while (!exit) {
+            clearScreen();
+            System.out.println("      PICTURE PERFECT");
+            System.out.println("_____________________________");
+            System.out.println("index>");
+            System.out.println("_____________________________");
+            System.out.println("1. Login\t2. Signup");
+            System.out.println("3. Exit");
+            System.out.print("Enter Your Choice: ");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        switch (choice) {
-            case 1:
-                clearScreen();
-                login.authenticate();
-                break;
-            case 2:
-                clearScreen();
-                signup.signUp();
-                break;
-            case 3:
-                System.out.println("Exiting...");
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
+            switch (choice) {
+                case 1:
+                    clearScreen();
+                    if (login.authenticate())
+                        exit = true;
+                    break;
+                case 2:
+                    clearScreen();
+                    signup.signUp();
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    exit = true; // Exit the loop
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+            clearScreen();
+            System.out.println("      PICTURE PERFECT");
+            System.out.println("_____________________________");
+            System.out.println("index>homepage>");
+            System.out.println("_____________________________");
+            
         }
-        System.out.println("SUCCESS");
         scanner.close();
     }
 

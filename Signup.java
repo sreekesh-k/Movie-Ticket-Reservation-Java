@@ -28,6 +28,8 @@ public class Signup {
         } else {
             System.out.println("Error registering user. Please try again.");
         }
+        System.out.println("Press Enter to continue...");
+        scanner.nextLine();
     }
 
     private boolean registerUser(String username, String password, String email) {
