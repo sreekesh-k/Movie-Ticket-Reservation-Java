@@ -1,4 +1,5 @@
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class Signup {
@@ -32,15 +33,32 @@ public class Signup {
     private boolean registerUser(String username, String password, String email) {
         try {
             DbConnection dbConnection = new DbConnection("movies_db");
-            String sql = "INSERT INTO users (username, password, emailid) VALUES (?, ?, ?)";
-            PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(3, email);
 
-            int rowsAffected = preparedStatement.executeUpdate();
+            // Check if username already exists
+            String checkUsernameSql = "SELECT COUNT(*) FROM users WHERE username = ?";
+            PreparedStatement checkUsernameStatement = dbConnection.prepareStatement(checkUsernameSql);
+            checkUsernameStatement.setString(1, username);
+            ResultSet usernameResultSet = checkUsernameStatement.executeQuery();
+            usernameResultSet.next();
+            int existingUserCount = usernameResultSet.getInt(1);
+            usernameResultSet.close();
+            checkUsernameStatement.close();
 
-            preparedStatement.close();
+            if (existingUserCount > 0) {
+                System.out.println("Username already exists. Please choose a different username.");
+                dbConnection.close();
+                return false;
+            }
+
+            // Register the user
+            String insertUserSql = "INSERT INTO users (username, password, emailid) VALUES (?, ?, ?)";
+            PreparedStatement insertUserStatement = dbConnection.prepareStatement(insertUserSql);
+            insertUserStatement.setString(1, username);
+            insertUserStatement.setString(2, password);
+            insertUserStatement.setString(3, email);
+            int rowsAffected = insertUserStatement.executeUpdate();
+
+            insertUserStatement.close();
             dbConnection.close();
 
             return rowsAffected > 0; // Returns true if at least one row is affected (user is registered)
