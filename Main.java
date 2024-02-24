@@ -5,6 +5,7 @@ public class Main {
     private static Login login = new Login();
     private static Signup signup = new Signup();
     private static Movies movies = new Movies();
+    private static Bookings bookings = new Bookings();
 
     public static void main(String[] args) {
         boolean exit = false;
@@ -25,8 +26,8 @@ public class Main {
                 case 1:
                     clearScreen();
                     if (login.authenticate()) {
-                        clearScreen();
-                        movieSelection();
+                        int selectedMovieId = movieSelection();
+                        ticketBooking(selectedMovieId);
                         exit = true;
                     }
                     break;
@@ -50,17 +51,23 @@ public class Main {
         System.out.flush();
     }
 
-    private static void movieSelection() {
+    private static int movieSelection() {
+        clearScreen();
         System.out.println("      PICTURE PERFECT");
         System.out.println("_____________________________");
         System.out.println("index>Home>");
         System.out.println("_____________________________");
         int selectedMovieId = movies.selectMovie();
-        if (selectedMovieId != -1) {
-            System.out.println("You have selected movie with ID: " + selectedMovieId);
-        } else {
-            System.out.println("No movie selected. Returning to main menu.");
-        }
-        // Add further logic here for movie selection process
+
+        return selectedMovieId;
+    }
+
+    private static void ticketBooking(int selectedMovieId) {
+        clearScreen();
+        System.out.println("      PICTURE PERFECT");
+        System.out.println("_____________________________");
+        String title = bookings.getMovieName(selectedMovieId);
+        System.out.println("index>Home>" + title + ">");
+        System.out.println("_____________________________");
     }
 }
