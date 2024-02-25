@@ -44,33 +44,33 @@ public class Bookings {
             dbConnection.close();
 
             availableSeats = availableSeatIds.size();
+
+            System.out.println("Total Available Seats: " + availableSeats + " out of " + totalSeats);
+            System.out.print("Enter the number of seats you want to book: ");
+            int numSeatsToBook = scanner.nextInt();
+
+            if (numSeatsToBook <= 0 || numSeatsToBook > availableSeats) {
+                System.out.println("Invalid number of seats. Please try again.");
+                return;
+            }
+
+            // Select numSeatsToBook seats from availableSeatIds list
+            List<Integer> selectedSeatIds = new ArrayList<>();
+            System.out.println("Please select " + numSeatsToBook + " seats:");
+            for (int i = 0; i < numSeatsToBook; i++) {
+                System.out.print("Enter seat ID " + (i + 1) + ": ");
+                int selectedSeatId = scanner.nextInt();
+                if (availableSeatIds.contains(selectedSeatId)) {
+                    selectedSeatIds.add(selectedSeatId);
+                    availableSeatIds.remove(Integer.valueOf(selectedSeatId)); // Remove the selected seat from available
+                                                                              // seats
+                } else {
+                    System.out.println("Invalid seat ID. Please select an available seat.");
+                    i--; // Decrement i to re-prompt for the same seat
+                }
+            }
         } catch (Exception e) {
             System.out.println("Error fetching seat information: " + e);
-        }
-
-        System.out.println("Total Available Seats: " + availableSeats + " out of " + totalSeats);
-        System.out.print("Enter the number of seats you want to book: ");
-        int numSeatsToBook = scanner.nextInt();
-
-        if (numSeatsToBook <= 0 || numSeatsToBook > availableSeats) {
-            System.out.println("Invalid number of seats. Please try again.");
-            return;
-        }
-
-        // Select numSeatsToBook seats from availableSeatIds list
-        List<Integer> selectedSeatIds = new ArrayList<>();
-        System.out.println("Please select " + numSeatsToBook + " seats:");
-        for (int i = 0; i < numSeatsToBook; i++) {
-            System.out.print("Enter seat ID " + (i + 1) + ": ");
-            int selectedSeatId = scanner.nextInt();
-            if (availableSeatIds.contains(selectedSeatId)) {
-                selectedSeatIds.add(selectedSeatId);
-                availableSeatIds.remove(Integer.valueOf(selectedSeatId)); // Remove the selected seat from available
-                                                                          // seats
-            } else {
-                System.out.println("Invalid seat ID. Please select an available seat.");
-                i--; // Decrement i to re-prompt for the same seat
-            }
         }
 
     }

@@ -51,18 +51,20 @@ public class DisplaySeats {
             int count = 1;
             while (resultSet.next()) {
                 int seatId = resultSet.getInt("seatid");
-                String seatNo = resultSet.getString("seatno");
+                // String seatNo = resultSet.getString("seatno");
                 // Check if the seat is booked
                 boolean isBooked = isSeatBooked(seatId);
                 String status = isBooked ? "B" : "A";
                 System.out.print(seatId + "-" + status);
                 count++;
-                if (count % 20 == 1) {
+                if (count % 12 == 1) {
                     System.out.println(); // Move to the next line after every 20 seats
                 } else {
                     System.out.print("\t"); // Add a tab after each seat
                 }
             }
+            System.out.println("\n\t\t\t\t\tScreen is here");
+            System.out.println("\t\t\t\t-------------------------------\n");
             resultSet.close();
             preparedStatement.close();
             dbConnection.close();
