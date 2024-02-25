@@ -6,15 +6,16 @@ public class Main {
     private static Signup signup = new Signup();
     private static Movies movies = new Movies();
     private static Bookings bookings = new Bookings();
+    private static String logo = "      PICTURE PERFECT";
+    private static String page = "index>";
+    private static String line = "\n_____________________________";
 
     public static void main(String[] args) {
         boolean exit = false;
         while (!exit) {
             clearScreen();
-            System.out.println("      PICTURE PERFECT");
-            System.out.println("_____________________________");
-            System.out.println("index>");
-            System.out.println("_____________________________");
+            System.out.println(logo + line);
+            System.out.println(page + line);
             System.out.println("1. Login\t2. Signup");
             System.out.println("3. Exit");
             System.out.print("Enter Your Choice: ");
@@ -53,10 +54,9 @@ public class Main {
 
     private static int movieSelection() {
         clearScreen();
-        System.out.println("      PICTURE PERFECT");
-        System.out.println("_____________________________");
-        System.out.println("index>Home>");
-        System.out.println("_____________________________");
+        page += "Home>";
+        System.out.println(logo + line);
+        System.out.println(page + line);
         int selectedMovieId = movies.selectMovie();
 
         return selectedMovieId;
@@ -64,10 +64,10 @@ public class Main {
 
     private static void ticketBooking(int selectedMovieId) {
         clearScreen();
-        System.out.println("      PICTURE PERFECT");
-        System.out.println("_____________________________");
         String title = bookings.getMovieName(selectedMovieId);
-        System.out.println("index>Home>" + title + ">");
-        System.out.println("_____________________________");
+        page += title;
+        System.out.println(logo + line);
+        System.out.println(page + line);
+        System.out.println("Select your seats:");
     }
 }
