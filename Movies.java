@@ -1,14 +1,20 @@
+
+/*This is The Class that fetches and displayes movies from the database */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Scanner;
+//IMPORT STATEMENTS
 
 public class Movies {
     private Scanner scanner;
+    // scanner declared as a private datamember so that it can be used by all
+    // methods
 
     public Movies() {
-        this.scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);// creates a scanner object when object of this login class is created
     }
 
+    // method to be called that returns the id of the movie selected
     public int selectMovie() {
         displayMovies();
 
@@ -21,7 +27,7 @@ public class Movies {
     private void displayMovies() {
         try {
             DbConnection dbConnection = new DbConnection("movies_db");
-            String sql = "SELECT * FROM movies WHERE r_date > '2019-01-01'";
+            String sql = "SELECT * FROM movies WHERE r_date > '2019-01-01'";// new released movies
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -36,7 +42,7 @@ public class Movies {
                 String genre = resultSet.getString("genre");
                 int releaseYear = resultSet.getInt("r_date");
 
-                System.out.printf("%d\t%-20s\t%-20s\t%d\n", id, title, genre, releaseYear);
+                System.out.printf("%d\t%-20s\t%-20s\t%d\n", id, title, genre, releaseYear);// decoration and spacing
             }
 
             resultSet.close();

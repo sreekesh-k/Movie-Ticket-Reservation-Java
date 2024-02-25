@@ -1,3 +1,5 @@
+
+/*Main program */
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +18,7 @@ public class Main {
             clearScreen();
             System.out.println(logo + line);
             System.out.println(page + line);
-            System.out.println("1. Login\t2. Signup");
+            System.out.println("1. Login\n2. Signup");
             System.out.println("3. Exit");
             System.out.print("Enter Your Choice: ");
 

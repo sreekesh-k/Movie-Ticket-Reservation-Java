@@ -1,3 +1,5 @@
+
+/*This is The Class that aloows booking based on the movie id selected */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
