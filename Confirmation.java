@@ -33,7 +33,10 @@ public class Confirmation {
         String choice = scanner.nextLine();
 
         if (choice.equalsIgnoreCase("yes")) {
-            insertIntoBookings(selectedSeatIds);
+            for (Integer seatId : selectedSeatIds) {
+                insertIntoBookings(seatId);
+            }
+
             Session.clearSession();
             System.out.println("Booking confirmed");
         } else if (choice.equalsIgnoreCase("no")) {
@@ -45,26 +48,21 @@ public class Confirmation {
         }
     }
 
-    private void insertIntoBookings(List<Integer> selectedSeatIds) {
+    private void insertIntoBookings(Integer seatId) {
         DbConnection dbConnection = new DbConnection("movies_db");
         java.util.Date currentDate = new java.util.Date();
         // Convert java.util.Date to java.sql.Date
         Date sqlDate = new Date(currentDate.getTime());
         try {
             String insertSql = "INSERT INTO bookings (movieid, seatid, username, bookingdate) VALUES (?, ?, ?, ?)";
-            try {
-                PreparedStatement insertStatement = dbConnection.prepareStatement(insertSql);
-                for (Integer seatId : selectedSeatIds) {
-                    insertStatement.setInt(1, movieId);
-                    insertStatement.setInt(2, seatId); // Insert each seatId from the list
-                    insertStatement.setString(3, userName);
-                    insertStatement.setDate(4, sqlDate);
-                    insertStatement.executeUpdate();
-                }
-                insertStatement.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            PreparedStatement insertStatement = dbConnection.prepareStatement(insertSql);
+            insertStatement.setInt(1, movieId);
+            insertStatement.setInt(2, seatId); // Insert each seatId from the list
+            insertStatement.setString(3, userName);
+            insertStatement.setDate(4, sqlDate);
+            insertStatement.executeUpdate();
+
+            insertStatement.close();
 
             dbConnection.close();
         } catch (Exception e) {
