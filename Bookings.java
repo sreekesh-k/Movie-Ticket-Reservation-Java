@@ -69,10 +69,12 @@ public class Bookings {
                     i--; // Decrement i to re-prompt for the same seat
                 }
             }
+            Session.setSelectedIds(selectedSeatIds);
+            Confirmation confirmation = new Confirmation();
+            confirmation.confirmBooking();
         } catch (Exception e) {
             System.out.println("Error fetching seat information: " + e);
         }
 
     }
-
 }

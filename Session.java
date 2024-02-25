@@ -1,8 +1,10 @@
-//trying to implement something like a $_SESSION in php
+import java.util.List;
+
 public class Session {
     private static boolean isLoggedIn = false;
     private static String username = null;
     private static int selectedMovieId = -1;
+    private static List<Integer> selectedSeatIds = null;
 
     public static boolean isLoggedIn() {
         return isLoggedIn;
@@ -26,6 +28,14 @@ public class Session {
 
     public static void setSelectedMovieId(int selectedMovieId) {
         Session.selectedMovieId = selectedMovieId;
+    }
+
+    public static void setSelectedIds(List<Integer> selectedSeatIds) {
+        Session.selectedSeatIds = selectedSeatIds;
+    }
+
+    public static List<Integer> getSelectedIds() {
+        return selectedSeatIds;
     }
 
     public static void clearSession() {
