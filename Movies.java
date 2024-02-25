@@ -2,6 +2,7 @@
 /*This is The Class that fetches and displayes movies from the database */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 //IMPORT STATEMENTS
 
@@ -18,10 +19,45 @@ public class Movies {
     public int selectMovie() {
         displayMovies();
 
-        System.out.print("\nPlease enter the ID of the movie you want to Book: ");
-        int selectedMovieId = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
+        int selectedMovieId = -1;
+
+        while (selectedMovieId == -1) {
+            System.out.print("\nPlease enter the ID of the movie you want to book (or -1 to cancel): ");
+            try {
+                selectedMovieId = scanner.nextInt();
+                scanner.nextLine();
+
+                if (!isValidMovie(selectedMovieId)) {
+                    System.out.println("Invalid movie ID. Please enter a valid ID.");
+                    selectedMovieId = -1; // Reset selectedMovieId to prompt user again
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid ID.");
+                scanner.nextLine(); // Consume invalid input
+            }
+        }
+
         return selectedMovieId;
+    }
+
+    private boolean isValidMovie(int movieId) {
+        boolean isValid = false;
+        try {
+            DbConnection dbConnection = new DbConnection("movies_db");
+            String sql = "SELECT * FROM movies WHERE movieid = ? AND r_date > '2019-01-01'";
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
+            preparedStatement.setInt(1, movieId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            isValid = resultSet.next(); // Check if the ResultSet contains any rows
+
+            resultSet.close();
+            preparedStatement.close();
+            dbConnection.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return isValid;
     }
 
     private void displayMovies() {

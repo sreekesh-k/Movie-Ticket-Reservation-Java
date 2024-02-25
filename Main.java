@@ -29,8 +29,7 @@ public class Main {
                 case 1:
                     clearScreen();
                     if (login.authenticate()) {
-                        int selectedMovieId = movieSelection();
-                        ticketBooking(selectedMovieId);
+                        movieSelection();
                         exit = true;
                     }
                     break;
@@ -54,14 +53,13 @@ public class Main {
         System.out.flush();
     }
 
-    private static int movieSelection() {
+    private static void movieSelection() {
         clearScreen();
         page += "Home>";
         System.out.println(logo + line);
         System.out.println(page + line);
         int selectedMovieId = movies.selectMovie();
-
-        return selectedMovieId;
+        ticketBooking(selectedMovieId);
     }
 
     private static void ticketBooking(int selectedMovieId) {

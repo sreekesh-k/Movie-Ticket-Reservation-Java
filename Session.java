@@ -1,3 +1,5 @@
+//trying to implement something like a $_SESSION in php
+//status: not yet used in the program
 public class Session {
     private static boolean isLoggedIn = false;
     private static int userId = -1;
