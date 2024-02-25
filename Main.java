@@ -71,6 +71,7 @@ public class Main {
         System.out.println(page + line);
         String username = Session.getUserName();
         System.out.println(username + " Please selecte your seats for the movie " + title);
-        
+        bookings.displayAvailableSeats();
+
     }
 }
