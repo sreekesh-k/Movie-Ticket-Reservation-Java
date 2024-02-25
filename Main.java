@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static String logo = "      PICTURE PERFECT";
-    private static String page = "index>";
-    private static String line = "\n_____________________________";
+    private static String logo = "      PICTURE PERFECT";// logo or brand name
+    private static String page = "index>";// this is like something that shows which page or which part you ar on
+    private static String line = "\n_____________________________";// decoration
 
     public static void main(String[] args) {
         boolean exit = false;
@@ -14,7 +14,10 @@ public class Main {
             clearScreen();
             System.out.println(logo + line);
             System.out.println(page + line);
-            System.out.println("1. Login\n2. Signup");
+            if (Session.isLoggedIn()){
+                String choice="logout";
+            }
+                System.out.println("1. Login\n2. Signup");
             System.out.println("3. Exit");
             System.out.print("Enter Your Choice: ");
 
@@ -52,16 +55,19 @@ public class Main {
         System.out.flush();
     }
 
+    // displays the movies and askes user to enter the movie id to book
     private static void movieSelection() {
         clearScreen();
         Movies movies = new Movies();
-        page += "Home>";
+        page += "Home>";// index>home>
         System.out.println(logo + line);
         System.out.println(page + line);
         movies.selectMovie();
         ticketBooking();
     }
 
+    // displays the seats avaliable for the movie and lets user choose the seats and
+    // confirm the booking and end the process
     private static void ticketBooking() {
         clearScreen();
         DisplaySeats displaySeats = new DisplaySeats();

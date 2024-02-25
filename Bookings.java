@@ -71,7 +71,8 @@ public class Bookings {
             }
             Session.setSelectedIds(selectedSeatIds);
             Confirmation confirmation = new Confirmation();
-            confirmation.confirmBooking();
+            confirmation.confirmBooking();// once seats are selected, confirmation process start
+            return;
         } catch (Exception e) {
             System.out.println("Error fetching seat information: " + e);
         }
