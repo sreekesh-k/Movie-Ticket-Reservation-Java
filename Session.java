@@ -1,8 +1,7 @@
 //trying to implement something like a $_SESSION in php
-//status: not yet used in the program
 public class Session {
     private static boolean isLoggedIn = false;
-    private static int userId = -1;
+    private static String username = null;
     private static int selectedMovieId = -1;
 
     public static boolean isLoggedIn() {
@@ -13,12 +12,12 @@ public class Session {
         isLoggedIn = loggedIn;
     }
 
-    public static int getUserId() {
-        return userId;
+    public static String getUserName() {
+        return username;
     }
 
-    public static void setUserId(int userId) {
-        Session.userId = userId;
+    public static void setUserName(String username) {
+        Session.username = username;
     }
 
     public static int getSelectedMovieId() {
@@ -31,7 +30,7 @@ public class Session {
 
     public static void clearSession() {
         isLoggedIn = false;
-        userId = -1;
+        username = null;
         selectedMovieId = -1;
     }
 }

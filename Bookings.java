@@ -4,10 +4,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Bookings {
-    public String getMovieName(int movieId) {
+    int movieId;
+
+    public Bookings() {
+        this.movieId = Session.getSelectedMovieId();
+    }
+
+    public String getMovieName() {
         String movieName = null;
 
         try {
+          
             DbConnection dbConnection = new DbConnection("movies_db");
             String sql = "SELECT title FROM movies WHERE movieid = ?";
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
@@ -27,4 +34,5 @@ public class Bookings {
 
         return movieName;
     }
+
 }

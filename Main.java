@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static Login login = new Login();
-    private static Signup signup = new Signup();
-    private static Movies movies = new Movies();
-    private static Bookings bookings = new Bookings();
     private static String logo = "      PICTURE PERFECT";
     private static String page = "index>";
     private static String line = "\n_____________________________";
@@ -28,6 +24,7 @@ public class Main {
             switch (choice) {
                 case 1:
                     clearScreen();
+                    Login login = new Login();
                     if (login.authenticate()) {
                         movieSelection();
                         exit = true;
@@ -35,6 +32,7 @@ public class Main {
                     break;
                 case 2:
                     clearScreen();
+                    Signup signup = new Signup();
                     signup.signUp();
                     break;
                 case 3:
@@ -55,19 +53,21 @@ public class Main {
 
     private static void movieSelection() {
         clearScreen();
+        Movies movies = new Movies();
         page += "Home>";
         System.out.println(logo + line);
         System.out.println(page + line);
-        int selectedMovieId = movies.selectMovie();
-        ticketBooking(selectedMovieId);
+        movies.selectMovie();
+        ticketBooking();
     }
 
-    private static void ticketBooking(int selectedMovieId) {
+    private static void ticketBooking() {
         clearScreen();
-        String title = bookings.getMovieName(selectedMovieId);
+        Bookings bookings = new Bookings();
+        String title = bookings.getMovieName();
         page += title;
         System.out.println(logo + line);
         System.out.println(page + line);
-        System.out.println("Select your seats:");
+
     }
 }

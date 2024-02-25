@@ -15,8 +15,8 @@ public class Movies {
         this.scanner = new Scanner(System.in);// creates a scanner object when object of this login class is created
     }
 
-    // method to be called that returns the id of the movie selected
-    public int selectMovie() {
+    // method to be called that stores the id of the movie selected in the session
+    public void selectMovie() {
         displayMovies();
 
         int selectedMovieId = -1;
@@ -37,7 +37,7 @@ public class Movies {
             }
         }
 
-        return selectedMovieId;
+        Session.setSelectedMovieId(selectedMovieId);
     }
 
     private boolean isValidMovie(int movieId) {
