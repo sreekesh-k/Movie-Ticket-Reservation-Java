@@ -64,14 +64,13 @@ public class Main {
 
     private static void ticketBooking() {
         clearScreen();
-        Bookings bookings = new Bookings();
-        String title = bookings.getMovieName();
+        DisplaySeats displaySeats = new DisplaySeats();
+        String title = displaySeats.getMovieName();
         page += title;
         System.out.println(logo + line);
         System.out.println(page + line);
         String username = Session.getUserName();
         System.out.println(username + " Please selecte your seats for the movie " + title);
-        bookings.displayAvailableSeats();
-
+        displaySeats.displayAvailableSeats();
     }
 }
