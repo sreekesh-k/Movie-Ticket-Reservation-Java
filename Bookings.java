@@ -11,7 +11,7 @@ public class Bookings {
     Scanner scanner;
 
     public Bookings() {
-        this.movieId = Session.getSelectedMovieId();
+        this.movieId = Session.getSelectedMovieId();// movie id from the sessiom(which movie is the user going to book)
         this.scanner = new Scanner(System.in);
     }
 
@@ -24,7 +24,7 @@ public class Bookings {
             String sql = "SELECT COUNT(*) AS total FROM seats";
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-
+            // total seats
             if (resultSet.next()) {
                 totalSeats = resultSet.getInt("total");
             }
@@ -33,7 +33,7 @@ public class Bookings {
             preparedStatement = dbConnection.prepareStatement(sql);
             preparedStatement.setInt(1, movieId);
             resultSet = preparedStatement.executeQuery();
-
+            // available seats
             List<Integer> availableSeatIds = new ArrayList<>();
             while (resultSet.next()) {
                 availableSeatIds.add(resultSet.getInt("seatid"));
@@ -62,11 +62,11 @@ public class Bookings {
                 int selectedSeatId = scanner.nextInt();
                 if (availableSeatIds.contains(selectedSeatId)) {
                     selectedSeatIds.add(selectedSeatId);
-                    availableSeatIds.remove(Integer.valueOf(selectedSeatId)); // Remove the selected seat from available
-                                                                              // seats
+                    availableSeatIds.remove(Integer.valueOf(selectedSeatId));
+                    // remove the selected seat from available seats
                 } else {
                     System.out.println("Invalid seat ID. Please select an available seat.");
-                    i--; // Decrement i to re-prompt for the same seat
+                    i--; // decremen i to show the same seat
                 }
             }
             Session.setSelectedIds(selectedSeatIds);

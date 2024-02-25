@@ -1,3 +1,5 @@
+
+//this is the class which deals with the confirmation of the ticket and inserting it to db
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -41,10 +43,14 @@ public class Confirmation {
 
             Session.clearSession();
             System.out.println("Booking confirmed");
+            System.out.println("Press Enter to continue...");
+            scanner.nextLine();
         } else if (choice.equalsIgnoreCase("no")) {
             // Clear the session and cancel the booking
             Session.clearSession();
             System.out.println("Booking canceled");
+            System.out.println("Press Enter to continue...");
+            scanner.nextLine();
         } else {
             System.out.println("Invalid choice. Please enter 'yes' or 'no'.");
         }

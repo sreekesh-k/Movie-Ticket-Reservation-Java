@@ -1,10 +1,12 @@
+
+//trying to implement somthing like a $_SESSION[] in php so that i dont have to keep returning the values from each function or class
 import java.util.List;
 
 public class Session {
-    private static boolean isLoggedIn = false;
-    private static String username = null;
-    private static int selectedMovieId = -1;
-    private static List<Integer> selectedSeatIds = null;
+    private static boolean isLoggedIn = false;// login or not
+    private static String username = null;// store username
+    private static int selectedMovieId = -1;// store the movie id while user is booking
+    private static List<Integer> selectedSeatIds = null;// seats selected by the user
 
     public static boolean isLoggedIn() {
         return isLoggedIn;

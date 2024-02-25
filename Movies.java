@@ -22,7 +22,7 @@ public class Movies {
         int selectedMovieId = -1;
 
         while (selectedMovieId == -1) {
-            System.out.print("\nPlease enter the ID of the movie you want to book (or -1 to cancel): ");
+            System.out.print("\nPlease enter the ID of the movie you want to book: ");
             try {
                 selectedMovieId = scanner.nextInt();
                 scanner.nextLine();
