@@ -44,5 +44,6 @@ public class Session {
         isLoggedIn = false;
         username = null;
         selectedMovieId = -1;
+        selectedSeatIds = null;
     }
 }

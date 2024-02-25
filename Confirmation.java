@@ -40,8 +40,6 @@ public class Confirmation {
             for (Integer seatId : selectedSeatIds) {
                 insertIntoBookings(seatId);
             }
-
-            Session.clearSession();
             System.out.println("Booking confirmed");
             System.out.println("Press Enter to continue...");
             scanner.nextLine();

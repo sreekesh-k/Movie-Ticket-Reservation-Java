@@ -32,6 +32,7 @@ public class Login {
             System.out.println("Login successful!");
             Session.setLoggedIn(true);
             Session.setUserName(username);// Store usernmae in session
+            System.out.println("Welcome Back " + username);
         } else {
             System.out.println("Invalid username or password. Please try again.");
         }

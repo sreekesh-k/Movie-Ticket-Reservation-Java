@@ -14,11 +14,13 @@ public class Main {
             clearScreen();
             System.out.println(logo + line);
             System.out.println(page + line);
-            if (Session.isLoggedIn()){
-                String choice="logout";
+            String opt;
+            if (Session.isLoggedIn()) {
+                opt = "1. logout\n2. View Tickets\n3. Book Tickets\n4. Exit";// if logged in then menu will show logout
+            } else {
+                opt = "1. Login\n2. Signup\n3. Exit";
             }
-                System.out.println("1. Login\n2. Signup");
-            System.out.println("3. Exit");
+            System.out.println(opt);
             System.out.print("Enter Your Choice: ");
 
             int choice = scanner.nextInt();
@@ -27,24 +29,40 @@ public class Main {
             switch (choice) {
                 case 1:
                     clearScreen();
-                    Login login = new Login();
-                    login.authenticate();
-                    if (Session.isLoggedIn()) {
-                        movieSelection();
-                        exit = true;
+                    if (Session.isLoggedIn()) {// if logged in then menu will show logout
+                        Session.clearSession();
+                        System.out.println("Logged out successfully.");
+                        System.out.println("Press Enter to continue...");
+                        scanner.nextLine();
+                    } else {
+                        Login login = new Login();
+                        login.authenticate();
+
                     }
                     break;
                 case 2:
                     clearScreen();
-                    Signup signup = new Signup();
-                    signup.signUp();
+                    if (Session.isLoggedIn()) {// if logged in then menu will show view ticket
+                        viewTicket();
+                    } else {
+                        Signup signup = new Signup();
+                        signup.signUp();
+                    }
                     break;
                 case 3:
+                    if (Session.isLoggedIn()) {
+                        movieSelection();
+                    } else {
+                        System.out.println("Invalid choice. Please try again.");
+                    }
+                    break;
+                case 4:
                     System.out.println("Exiting...");
                     exit = true; // Exit the loop
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         }
         scanner.close();
@@ -64,6 +82,7 @@ public class Main {
         System.out.println(page + line);
         movies.selectMovie();
         ticketBooking();
+        page = "index>";
     }
 
     // displays the seats avaliable for the movie and lets user choose the seats and
@@ -80,5 +99,12 @@ public class Main {
         displaySeats.displayAvailableSeats();
         Bookings bookings = new Bookings();
         bookings.bookSeats();
+        page = "index>Home>";
+    }
+
+    private static void viewTicket() {
+        System.out.println("Hello " + Session.getUserName() + " Your bookings:");
+        BookedTickets bookedTickets = new BookedTickets();
+        bookedTickets.displayBookedTickets();
     }
 }
