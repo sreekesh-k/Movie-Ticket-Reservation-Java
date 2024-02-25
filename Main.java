@@ -25,7 +25,8 @@ public class Main {
                 case 1:
                     clearScreen();
                     Login login = new Login();
-                    if (login.authenticate()) {
+                    login.authenticate();
+                    if (Session.isLoggedIn()) {
                         movieSelection();
                         exit = true;
                     }
@@ -68,6 +69,8 @@ public class Main {
         page += title;
         System.out.println(logo + line);
         System.out.println(page + line);
-
+        String username = Session.getUserName();
+        System.out.println(username + " Please selecte your seats for the movie " + title);
+        
     }
 }

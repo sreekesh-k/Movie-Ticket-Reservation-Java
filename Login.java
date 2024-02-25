@@ -15,7 +15,7 @@ public class Login {
     }
 
     // returns true or false
-    public boolean authenticate() {
+    public void authenticate() {
         // menu
         System.out.println("\tLOGIN");
         System.out.println("__________________________");
@@ -30,13 +30,14 @@ public class Login {
 
         if (isAuthenticated) {
             System.out.println("Login successful!");
+            Session.setLoggedIn(true);
+            Session.setUserName(username);// Store usernmae in session
         } else {
             System.out.println("Invalid username or password. Please try again.");
         }
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
 
-        return isAuthenticated;// return true or false
     }
 
     // check if user is registered if yes? true : false
