@@ -37,7 +37,7 @@ public class BookedTickets {
                 PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
                 preparedStatement.setString(1, username);
                 ResultSet resultSet = preparedStatement.executeQuery();
-
+                
                 while (resultSet.next()) {
                     String movieTitle = resultSet.getString("movie_title");
                     int numSeats = resultSet.getInt("num_seats");

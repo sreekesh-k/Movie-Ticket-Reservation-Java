@@ -18,7 +18,7 @@ public class Main {
             if (Session.isLoggedIn()) {
                 opt = "1. logout\n2. View Tickets\n3. Book Tickets\n4. Exit";// if logged in then menu will show logout
             } else {
-                opt = "1. Login\n2. Signup\n3. Exit";
+                opt = "1. Login\n2. Signup\n4. Exit";
             }
             System.out.println(opt);
             System.out.print("Enter Your Choice: ");
@@ -54,6 +54,7 @@ public class Main {
                         movieSelection();
                     } else {
                         System.out.println("Invalid choice. Please try again.");
+                        scanner.nextLine();
                     }
                     break;
                 case 4:
@@ -62,6 +63,7 @@ public class Main {
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    scanner.nextLine();
                     break;
             }
         }

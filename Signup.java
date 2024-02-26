@@ -44,10 +44,9 @@ public class Signup {
             DbConnection dbConnection = new DbConnection("movies_db");// movies_db
 
             // Check if username already exists
-            String checkUsernameSql = "SELECT COUNT(*) FROM users WHERE username = ? ANd emailid = ?";
+            String checkUsernameSql = "SELECT * FROM users WHERE username = ?";
             PreparedStatement checkUsernameStatement = dbConnection.prepareStatement(checkUsernameSql);// preparedstatement
             checkUsernameStatement.setString(1, username);
-            checkUsernameStatement.setString(2, email);
             ResultSet usernameResultSet = checkUsernameStatement.executeQuery();
             boolean userExists = usernameResultSet.next();// if 0 rows? false : true
             usernameResultSet.close();
